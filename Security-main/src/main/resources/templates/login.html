@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script defer src="/js/common.js"></script>
+</head>
+<body>
+<h1>LOGIN PAGE</h1>
+<form action="/login" method="post">
+    USERNAME : <input name="username"> <br>
+    PASSWORD : <input name="password" type="password"> <br>
+    <div>
+        <div>
+            <input type="checkbox" name="remember-me" id="rememberMe">
+            <label for="rememberMe">로그인 상태를 유지</label>
+        </div>
+    </div>
+    <input type="submit">
+    <div th:text="${param.error}"></div>
+</form>
+<a href="/user/join">회원가입</a><br>
+<a href="/oauth2/authorization/kakao">카카오 로그인</a>
+<a href="/oauth2/authorization/naver">네이버 로그인</a>
+<a href="/oauth2/authorization/google">구글 로그인</a>
+</body>
+</html>
