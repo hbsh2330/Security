@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script defer src="js/common.js"></script>
+
+    <th:block th:insert="~{fragments/head :: headCdns}"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div class="top-header">
+            <nav>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div>
+                <h1><span class="material-symbols-outlined">login</span></h1>
+            </div>
+            <form action="/login" method="post">
+                <div>
+                    <label class="form-label fs-6">USERNAME</label>
+                    <input name="username" class="form-control" placeholder="example@domain.com"> <br>
+                </div>
+                <div>
+                    <label class="form-label fs-6">PASSWORD</label>
+                    <input name="password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요"> <br>
+                </div>
+                <div>
+                    <div>
+                        <input type="checkbox" name="remember-me" id="rememberMe" class="form-check-input">
+                        <label for="rememberMe" class="form-check-label">로그인 상태를 유지</label>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="로그인" class="btn btn-primary w-100 mt-3 mb-2">
+                </div>
+                <div th:text="${param.error}"></div>
+            </form>
+            <a href="/user/certification" class="btn btn-secondary w-100 mb-2">회원가입</a><br>
+            <a href="/oauth2/authorization/kakao" class="btn btn-warning w-100 mb-2">카카오 로그인</a>
+            <a href="/oauth2/authorization/naver" class="btn btn-success w-100 mb-2">네이버 로그인</a>
+            <a href="/oauth2/authorization/google" class="btn w-100 mb-2">구글 로그인</a>
+        </section>
+    </main>
+    <footer></footer>
+</div>
+</body>
+</html>

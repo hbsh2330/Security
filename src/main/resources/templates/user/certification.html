@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{fragments/head :: headCdns}"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div class="top-header">
+
+        </div>
+
+        <nav>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div style="height: 300px; line-height:300px; text-align: center; text-align: center; border: 1px solid lightgray; border-radius: 15px">
+                <button onclick="requestCert()" class="btn btn-primary">본인인증</button>
+            </div>
+        </section>
+    </main>
+</div>
+<!-- axios 인증 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- PortOne 인증SDK -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+<button onclick="">인증하기</button>
+
+<script>
+    const userCode = "imp40654467";
+    IMP.init(userCode);
+
+    function requestCert() {
+        IMP.certification(
+            {
+            pg: "inicis_unified",
+            merchant_uid: "test_lqdjtqg8",
+            },
+            function (response) {
+                console.log(response);
+                axios.post("/user/certification", null, {params :{"is_auth_join " : response.success, "auth_value": response.imp_uid}})
+                    .then(resp=>{
+                        console.log("local msg", resp)
+                    })
+                    .catch(error=>{
+                        console.log("local msg", error)
+                    });
+            }
+        );
+    }
+</script>
+</body>
+<footer>
+
+</footer>
+
+</html>
