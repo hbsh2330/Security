@@ -38,19 +38,62 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain chain
     ) throws IOException, ServletException, IOException {
+
+
         System.out.println("[JWTAUTHORIZATIONFILTER] doFilterInternal...");
 
         String token = null;
         try {
-            // cookie 에서 JWT token을 가져옵니다.
-            token = Arrays.stream(request.getCookies())
-                    .filter(cookie -> cookie.getName().equals(JwtProperties.COOKIE_NAME)).findFirst()
-                    .map(cookie -> cookie.getValue())
-                    .orElse(null);
+            String importAuth = null;
+            // /user/join 으로 GET 에 한에서 적용
+
+            if (request.getRequestURI().equals("/user/join")) {
+
+                Cookie[] cookies = request.getCookies();
+                System.out.println(request.getRequestURI() + " cookies : " + cookies);
+                if (cookies != null) {
+                    importAuth = Arrays.stream(cookies).filter(co -> co.getName().equals("importAuth")).findFirst()
+                            .map(co -> co.getValue())
+                            .orElse(null);
+                    System.out.println("[JWTAUTHORIZATIONFILTER] GET /user/join importAuth Cookie value : " + importAuth);
+
+                    if (importAuth == null) {
+                        throw  new Exception("/user/join 에 필요한 쿠키가 없습니다..");
+                    } else {
+                        // cookie 에서 JWT token을 가져옵니다.
+                        token = Arrays.stream(request.getCookies())
+                                .filter(c -> c.getName().equals(JwtProperties.COOKIE_NAME)).findFirst()
+                                .map(c -> c.getValue())
+                                .orElse(null);
+                    }
+                }
+                else{
+                    throw new Exception(" 쿠키가 하나도 없습니다..");
+                }
+            }
+        }catch(Exception e){
+            System.out.println("[JWTAUTHORIZATIONFILTER] impoartAuth null Exception...message : " + e.getMessage());
+            response.sendRedirect("/login");
+            return;
+        }
+
+
+
+        try{
+
+            if(token==null) {
+                // cookie 에서 JWT token을 가져옵니다.
+                token = Arrays.stream(request.getCookies())
+                        .filter(c -> c.getName().equals(JwtProperties.COOKIE_NAME)).findFirst()
+                        .map(c -> c.getValue())
+                        .orElse(null);
+            }
 
         } catch (Exception ignored) {
+            //일반적으로 접근하는 요청 URI에 대한 쿠키 예외는 무시한다..
 
         }
+
         if (token != null) {
             try {
                 if(jwtTokenProvider.validateToken(token)) {
@@ -67,6 +110,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 Cookie cookie = new Cookie(JwtProperties.COOKIE_NAME, null);
                 cookie.setMaxAge(0);
                 response.addCookie(cookie);
+
+
 
             }catch(Exception e2){
 
