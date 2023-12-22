@@ -1,29 +1,166 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <!-- th:fragment     -->
+    <th:block th:insert="fragments/head :: headCdns"/>
+
+    <!-- common.css    -->
+    <link rel="stylesheet" href="/css/common.css">
+
+    <!-- join.css    -->
+    <link rel="stylesheet" href="/css/user/join.css">
+
 </head>
 <body>
-<h1>JOIN PAGE</h1>
-<form name="joinform" action="/join" method="post" onsubmit="return false">
-    USERNAME : <input name="username"> <br>
-    PASSWORD : <input name="password" type="password"> <br>
-    <button onclick="isValid()">가입요청</button>
-</form>
+
+
+<div class="wrapper ">
+
+    <header>
+
+    </header>
+
+    <main class="container-xxl">
+        <section>
+
+
+            <div class="join_block">
+                <div class="header">
+                    <!-- title -->
+                    <h3>회원가입</h3>
+                </div>
+                <div class="body">
+                    <form  class="joinform"  name="joinform" action="/user/join" method="post" onsubmit="return false">
+                        <div class="mt-2 mb-2">
+                            <label>이메일계정</label>&nbsp;&nbsp;<span th:text="${username}" style="font-size:0.7rem;color:orange;" class="username_msg"></span>
+
+                            <div style="display:flex;">
+                                <input name="username" class="form-control username" placeholder="이메일 계정 입력" type="email" required>
+                                <button type="button" onclick="emailAuthFunc()" class="btn btn-secondary email_auth_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:80px;margin-left:5px;">
+                                    인증
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;color:orange;"></span>
+                            <input type="password" name="password" class="form-control" placeholder="패스워드 입력">
+                        </div>
+                        <div class="mb-2">
+                            <label>패스워드 확인</label>&nbsp;&nbsp;<span th:text="${repassword}"  style="font-size:0.7rem;color:orange;"></span>
+                            <input type="password" name="repassword" class="form-control" placeholder="패스워드 다시입력">
+                        </div>
+                        <div class="mb-2">
+                            <label>연락처</label>  <span th:text="${phone}"  style="font-size:0.7rem;color:orange;"></span>
+                            <div>
+                                <input name="phone" class="form-control" placeholder="- 제외하고 입력">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label>우편번호 검색</label>
+                            <div style="display:flex;">
+                                <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
+                                <button class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</button>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label>기본 주소</label>
+                            <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력">
+                        </div>
+                        <div class="mb-2">
+                            <label>상세 주소</label>
+                            <input name="addr2" class="form-control" placeholder="상세주소 입력">
+                        </div>
+                        <div class="mb-2">
+                            <button onclick=isValid() class="btn btn-success w-100 join_btn">회원가입</button>
+                        </div>
+                        <div class="mb-2">
+                            <button  class="btn btn-secondary w-100">이전으로</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <script>
+
+            </script>
+        </section>
+
+    </main>
+
+
+</div>
+
+
+
+
+
+<!-- Email Auth Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">인증 코드 입력</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form style="display:flex;justify-content:space-between;" onSubmit="return false">
+                    <div style="width:100%;">
+                        <input class="form-control code">
+                    </div>
+                    <div style="width:80px;margin-left:5px;text-align:right;">
+                        <button class="btn btn-primary email_auth_btn_2">전송</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">다시요청</button>
+                <button type="button" class="btn btn-secondary modal_exit" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-    const form = document.joinform;
-    const isValid=()=>{
-        if (form.username.value.trim()==""){
-            alert("USERNAME은 반드시 입력해야합니다.");
+    const isValid=() => {
+        //유효성 체크 username, password, phone..
+
+        const joinform = document.joinform;
+        let regexUsername = new RegExp("[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")
+        if(joinform.username.value.trim()===""){
+            alert("email주소를 입력하세요");
+            location.href="/user/join";
             return;
-        }else if (form.password.value.trim()==""){
-            alert("PASSWORD는 반드시 입력해야합니다.");
+        }else if(!regexUsername.test(joinform.username.value.trim())){
+            alert("이메일 형식으로 입력해주세요");
+            location.href="/user/join"
             return;
         }
-        form.submit();
+        return true;
+    };
+    const emailAuthFunc = function (){
+        if (isValid()){
+            //서버 이메일 전송 요청 GET - 비동기 요청
+            const email = document.joinform.username.value;
+            axios.get('/user/sendmail/' + email)
+                .then(res=>{})
+                .catch(err=>{});
+        }else {
+
+        }
     }
 </script>
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+<!-- common.js   -->
+<script defer src="/js/user/join.js"></script>
+
+
 
 </body>
 </html>

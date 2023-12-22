@@ -55,6 +55,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
+	//MAIL
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	//ORM_JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 

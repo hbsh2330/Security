@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.dto.CertificationDto;
 import com.example.demo.domain.dto.UserDto;
 import com.example.demo.domain.service.UserService;
+import com.example.demo.properties.EmailAuthPropertoes;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +36,9 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
 
     @GetMapping("/myinfo")
     public void user(Authentication authentication, Model model){ //의존성을 받아오는거
@@ -47,6 +53,7 @@ public class UserController {
     @GetMapping("/join")
     public void join(){
         log.info("GET /join");
+
     }
     @PostMapping("/join")
     public String join_post(UserDto dto){
@@ -92,7 +99,26 @@ public class UserController {
         response.addCookie(authCookie);
 
         JSONObject obj = new JSONObject();
-        obj.put("success", true);
+        obj.put("success", true); // 요청 받은 값을 리턴
         return new ResponseEntity<JSONObject>(obj, HttpStatus.OK);
+    }
+    @GetMapping("/sendmail/{email}")
+    @ResponseBody
+    public ResponseEntity<JSONObject> sendmailFunc(@PathVariable("email") String email){
+
+        //넣을 값 지정
+        String code = EmailAuthPropertoes.planText;
+
+        passwordEncoder.encode(code);
+        //메일 메시지 만들기
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("[WEB-Server]임시패스워드 발급");
+        message.setText(passwordEncoder.encode(code));
+
+        javaMailSender.send(message);
+        log.info("GET /user/sendmail.." + email);
+
+        return new ResponseEntity(new JSONObject().put("success", true) , HttpStatus.OK);
     }
 }
