@@ -33,7 +33,7 @@
                     <h3>회원가입</h3>
                 </div>
                 <div class="body">
-                    <form  class="joinform"  name="joinform" action="/user/join" method="post" onsubmit="return false">
+                    <form  class="joinform"  name="joinform" action="/user/join" method="post">
                         <div class="mt-2 mb-2">
                             <label>이메일계정</label>&nbsp;&nbsp;<span th:text="${username}" style="font-size:0.7rem;color:orange;" class="username_msg"></span>
 
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;color:orange;"></span>
+                            <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;"></span>
                             <input type="password" name="password" class="form-control" placeholder="패스워드 입력">
                         </div>
                         <div class="mb-2">
@@ -74,7 +74,7 @@
                             <input name="addr2" class="form-control" placeholder="상세주소 입력">
                         </div>
                         <div class="mb-2">
-                            <button onclick=isValid() class="btn btn-success w-100 join_btn">회원가입</button>
+                            <button class="btn btn-success w-100 join_btn">회원가입</button>
                         </div>
                         <div class="mb-2">
                             <button  class="btn btn-secondary w-100">이전으로</button>
@@ -106,9 +106,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form style="display:flex;justify-content:space-between;" onSubmit="return false">
+                <form name="emailForm" action="/user/emailConfirm" style="display:flex;justify-content:space-between;" onSubmit="return false">
+<!--                    submit버튼이 클릭되도 /user/emailConfirm로 안들어가짐 자바스크립트에서 설정하기위해-->
                     <div style="width:100%;">
-                        <input class="form-control code">
+                        <input name="emailCode" class="form-control code">
                     </div>
                     <div style="width:80px;margin-left:5px;text-align:right;">
                         <button class="btn btn-primary email_auth_btn_2">전송</button>
@@ -147,9 +148,43 @@
                 .then(res=>{})
                 .catch(err=>{});
         }else {
-
+            location.href="/user/join";
         }
     }
+    //이메일 인증버튼 클릭 이벤트
+    const email_btn_el = document.querySelector('.email_auth_btn_2');
+    email_btn_el.addEventListener('click', function (){
+        const emailForm = document.emailForm;
+        const emailCode = emailForm.emailCode.value;
+        if (emailCode.trim() =='') {
+            alert('인증코드를 올바르게 입력하세요');
+            return;
+        }
+        // emailForm.submit();
+        // 모달 창 활성화
+        // var myModal = new bootstrap.Modal(document.querySelector('#exampleModal'), {
+        //     keyboard : false
+        // })
+        // myModal.show();
+        axios.get('/user/emailConfirm?emailCode='+emailCode)
+            .then(res =>{console.log(res)
+            if (res.data.success){
+                //인증완료
+                document.querySelector('.username_msg').style.color='green';
+            }
+            else {
+                //인증 X
+                document.querySelector('.username_msg').style.color='orange';
+            }
+            document.querySelector('.username_msg').innerHTML=res.data.message;
+            // 모달창 비활성화
+            document.querySelector('#exampleModal').classList.remove('show');
+            document.querySelector('#exampleModal').classList.add('hide');
+            document.querySelector('.modal-backdrop').style.display = 'none';
+
+            })
+            .catch(err=>{console.log(err);})
+    })
 </script>
 
 <!-- axios -->
