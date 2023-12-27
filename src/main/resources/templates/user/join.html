@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;"></span>
+                            <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;color:orange;"></span>
                             <input type="password" name="password" class="form-control" placeholder="패스워드 입력">
                         </div>
                         <div class="mb-2">
@@ -54,19 +54,23 @@
                         </div>
                         <div class="mb-2">
                             <label>연락처</label>  <span th:text="${phone}"  style="font-size:0.7rem;color:orange;"></span>
-                            <div>
+                            <div style="display: flex">
                                 <input name="phone" class="form-control" placeholder="- 제외하고 입력">
+                                <button type="button" onclick="" class="btn btn-secondary email_auth_btn" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="width:80px;margin-left:5px;">
+                                    인증
+                                </button>
                             </div>
                         </div>
                         <div class="mb-2">
                             <label>우편번호 검색</label>
-                            <div style="display:flex;">
-                                <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
-                                <button class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</button>
-                            </div>
+                            <span th:text="${zipcode}"  style="font-size:0.7rem;color:orange;"></span>
+                                <div style="display: flex">
+                                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
+                                    <a href="javascript:openAddrPopUp()" class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</a>
+                                </div>
                         </div>
                         <div class="mb-2">
-                            <label>기본 주소</label>
+                            <label>기본 주소</label> <span th:text="${addr1}"  style="font-size:0.7rem;color:orange;"></span>
                             <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력">
                         </div>
                         <div class="mb-2">
@@ -123,6 +127,40 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">문자 코드 입력</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="emailForm" action="" style="display:flex;justify-content:space-between;" onSubmit="return false">
+                    <!--                    submit버튼이 클릭되도 /user/emailConfirm로 안들어가짐 자바스크립트에서 설정하기위해-->
+                    <div style="width:100%;">
+                        <input name="emailCode" class="form-control code">
+                    </div>
+                    <div style="width:80px;margin-left:5px;text-align:right;">
+                        <button class="btn btn-primary email_auth_btn_2">전송</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">다시요청</button>
+                <button type="button" class="btn btn-secondary modal_exit" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+<!-- common.js   -->
+<script defer src="/js/user/join.js"></script>
 <script>
     const isValid=() => {
         //유효성 체크 username, password, phone..
@@ -168,33 +206,42 @@
         // myModal.show();
         axios.get('/user/emailConfirm?emailCode='+emailCode)
             .then(res =>{console.log(res)
-            if (res.data.success){
-                //인증완료
-                document.querySelector('.username_msg').style.color='green';
-            }
-            else {
-                //인증 X
-                document.querySelector('.username_msg').style.color='orange';
-            }
-            document.querySelector('.username_msg').innerHTML=res.data.message;
-            // 모달창 비활성화
-            document.querySelector('#exampleModal').classList.remove('show');
-            document.querySelector('#exampleModal').classList.add('hide');
-            document.querySelector('.modal-backdrop').style.display = 'none';
+                if (res.data.success){
+                    //인증완료
+                    document.querySelector('.username_msg').style.color='green';
+                }
+                else {
+                    //인증 X
+                    document.querySelector('.username_msg').style.color='orange';
+                }
+                document.querySelector('.username_msg').innerHTML=res.data.message;
+                // 모달창 비활성화
+                document.querySelector('#exampleModal').classList.remove('show');
+                document.querySelector('#exampleModal').classList.add('hide');
+                document.querySelector('.modal-backdrop').style.display = 'none';
 
             })
             .catch(err=>{console.log(err);})
     })
 </script>
 
-<!-- axios -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- common.js   -->
-<script src="/js/common.js"></script>
-<!-- common.js   -->
-<script defer src="/js/user/join.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    const openAddrPopUp = () =>{
+        new daum.Postcode({
+            oncomplete: function(data) {
+                console.log(data);
+                if (data.addressType=='R'){
+                    //도로명 주소
+                    document.joinform.addr1.value=data.roadAddress;
+                }
+                document.joinform.zipcode.value=data.zonecode;
+            }
+        }).open();
+    }
 
+</script>
 
 
 </body>

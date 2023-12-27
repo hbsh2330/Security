@@ -43,21 +43,26 @@
             },
             function (response) {
                 console.log(response);
+                if (response.success) {
+                    const params = {"is_auth_join": response.success, "auth_value": response.imp_uid};
+                    const headers = {headers: {'Content-Type': 'application/Json'}}
 
-                const params = {"is_auth_join" : response.success, "auth_value": response.imp_uid};
-                const headers = {headers : {'Content-Type' : 'application/Json' }}
-                axios.post("/user/certification",params,headers)
-                    .then(resp=>{
-                        console.log("local msg", resp);
-                        if (resp.data.success)
-                           location.href='/user/join'; // 성공 로직 작성 서버에서 정상적으로 인증 확인 된 경우 페이지 이동 GET /user/join
-                        else
-                            alert('본인 인증을 실패했습니다.')
+                    axios.post("/user/certification", params, headers)
+                        .then(resp => {
+                            console.log("local msg", resp);
+                            if (resp.data.success)
+                                location.href = '/user/join'; // 성공 로직 작성 서버에서 정상적으로 인증 확인 된 경우 페이지 이동 GET /user/join
+                            else
+                                alert('본인 인증을 실패했습니다.')
                             // 실패 로직 작성 본인인증에 실패했습니다.
-                    })
-                    .catch(error=>{
-                        console.log("local msg", error)
-                    });
+                        })
+                        .catch(error => {
+                            console.log("local msg", error)
+                        });
+                }else {
+                    alert("사용자 인증을 실패했습니다.")
+                    location.href="/user/certification";
+                }
             }
         );
     }

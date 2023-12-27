@@ -22,9 +22,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -43,6 +45,12 @@ public class UserController {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @InitBinder
+    public void dataBinder(WebDataBinder dataBinder){
+        log.info("dataBinder : " + dataBinder);
+        dataBinder.registerCustomEditor(String.class, new PhoneNumberEditor());
+    }
 
 
     @GetMapping("/myinfo")
@@ -153,7 +161,21 @@ public class UserController {
         object.put("success", false);
         object.put("message", "이메일 인증에 실패했습니다.");
         return object;
+    }
+}
 
+class PhoneNumberEditor extends PropertyEditorSupport{
+    @Override
+    public String getAsText() { //바인딩된 결과를 확인할때 쓰는 함수
+        System.out.println("PhoneNumberEditor getAsText()... text : " + getValue());
+
+        return (String)getValue();
     }
 
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException { // 바인딩을 설정할때 쓰는 함수
+        System.out.println("PhoneNumberEditor setAsText()... text : " + text);
+        String formattedText = text.replaceAll("-", "");
+        setValue(formattedText);
+    }
 }
