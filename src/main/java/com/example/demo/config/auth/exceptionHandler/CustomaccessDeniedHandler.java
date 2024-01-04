@@ -8,9 +8,9 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 
-public class CustomaccessDeniedHandler implements AccessDeniedHandler {
+public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        System.out.println("[CustomaccessDeniedHandler] handle()" + accessDeniedException);
+        System.out.println("[CustomAccessDeniedHandler] handle() "+accessDeniedException);
     }
 }

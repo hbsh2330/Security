@@ -1,0 +1,95 @@
+.wrapper>main{
+        display:flex;
+       justify-content:center;
+       align-items:start;
+
+}
+.wrapper>main>*{margin :  0px 50px;}
+
+/*          */
+       .product_img{
+            width : 500px;
+            height: 350px;
+            position: relative;
+        }
+        .upload-box {
+          width: 100%;
+          height : 350px;
+          margin: 10px auto;
+          border: 3px dashed lightgray;
+          padding: 10px;
+          position: relative;
+
+
+        }
+        .upload-box::before{
+            content : "이미지를 드래그하세요";
+            display:block;
+            position:absolute;
+            left:0px;
+            top:40px;
+            width : 100%;
+            height : 450px;
+            text-align:center;
+            color:lightgray;
+            margin-top:10px;
+        }
+
+        .plus {
+          height:100%;
+          display:flex;
+          justify-content:center;
+          align-items: center;
+
+          font-size: 7em;
+          color: lightgray;
+          position:relative;
+          top:-5%;
+        }
+
+        .preview_img_block{
+            position:relative;
+            top : 10px;
+
+
+        }
+        #preview {
+            width : 100%;
+            height : 100px;
+            margin: 10px auto;
+            border : 1px dashed lightgray;
+
+            padding: 10px;
+            position: relative;
+            left:0px;
+            top:00px;
+
+            display: flex;
+            justify-content: center;
+            align-items : center;
+            flex-wrap: wrap;
+            overflow: auto;
+
+
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            border: 1px solid gray;
+            margin : 2px;
+        }
+
+        .product_info_block{
+            width:300px;
+            height : 300px;
+            position:relivate;
+        }
+        .product_info_block>form>*{
+            margin-bottom:5px;
+        }
+
+        .product_info_block label{
+            margin:5px 0px;
+        }
+

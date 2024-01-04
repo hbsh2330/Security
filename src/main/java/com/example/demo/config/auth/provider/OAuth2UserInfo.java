@@ -1,6 +1,5 @@
 package com.example.demo.config.auth.provider;
 
-
 import java.util.Map;
 
 public interface OAuth2UserInfo {
@@ -9,5 +8,5 @@ public interface OAuth2UserInfo {
     String getProvider();
     String getProviderId();
 
-    Map<String, Object> getAttributes();
+    Map<String,Object> getAttributes();
 }

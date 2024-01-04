@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- th:fragment     -->
+    <th:block th:insert="~{fragments/head :: headCdns}"   />
+
+    <!-- common.css    -->
+    <link rel="stylesheet" href="/css/common.css">
+
+    <!-- /imageboard/add.css -->
+    <link rel="stylesheet" href="/css/imageboard/list.css">
+
+</head>
+<body>
+
+
+<div class="wrapper">
+
+    <!--    header  -->
+    <th:block th:insert="~{fragments/header ::headerFragment}" />
+
+    <main class="container-xxl">
+        <section class="row">
+            <!-- aside -->
+            <!-- body -->
+            <div class="items">
+
+
+                <!--card item-->
+                <div class="card" th:each="item : ${list}">
+
+
+                    <div class="image-block">
+                        <a th:href="@{/imageboard/read(id=${item.imageBoard.id})}">
+                            <img th:src="@{${item.dir}+${item.filename}}" class="card-img-top" alt="...">
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="productId" style="display:none" th:text="${item.imageBoard.id}"></div>
+                        <div class="productname" th:text="${item.imageBoard.productname}"></div>
+                        <div class="card-text"  >50% &nbsp;&nbsp;<span style="text-decoration:line-through">64000</span></div>
+                        <div class="card-text" ><span style="color:red;font-weight:800;font-size:1.3rem;"  class="price"  th:text="${item.imageBoard.price}"></span></div>
+
+                        <!-- rating          -->
+                        <div class="starpoint_wrap">
+                            <div class="starpoint_box">
+                                <label class="label_star" title="0.5"><span class="blind">0.5점</span></label>
+                                <label class="label_star" title="1"><span class="blind">1점</span></label>
+                                <label class="label_star" title="1.5"><span class="blind">1.5점</span></label>
+                                <label class="label_star" title="2"><span class="blind">2점</span></label>
+                                <label class="label_star" title="2.5"><span class="blind">2.5점</span></label>
+                                <label class="label_star" title="3"><span class="blind">3점</span></label>
+                                <label class="label_star" title="3.5"><span class="blind">3.5점</span></label>
+                                <label class="label_star" title="4"><span class="blind">4점</span></label>
+                                <label class="label_star" title="4.5"><span class="blind">4.5점</span></label>
+                                <label class="label_star" title="5"><span class="blind">5점</span></label>
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio" checked>
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <input type="radio" name="starpoint"  class="star_radio">
+                                <span class="starpoint_bg"></span>
+                            </div>
+                            <div>
+                                <span>(125)</span>
+                            </div>
+
+                        </div>
+
+                        <!--rating_end                 -->
+                    </div>
+
+                </div>
+                <!--card item-->
+            </div>
+
+
+        </section>
+
+
+
+    </main>
+    <!--  footer fragment      -->
+    <!--    <div th:replace="fragments/footer :: footerFragment" />-->
+
+</div>
+
+
+
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+
+</body>
+</html>

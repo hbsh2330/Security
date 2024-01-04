@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--  reset   -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
+
+    <!--  BS5  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- favicon.ico   -->
+    <link rel="icon" href="/images/favicon/favicon_2xl.png" />
+
+    <!-- GOOGLE ICON    -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+
+    <!-- GOOGLE FONTS    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+
+
+
+    <!-- common.css    -->
+    <link rel="stylesheet" href="/css/common.css">
+
+    <!-- /imageboard/add.css -->
+    <link rel="stylesheet" href="/css/imageboard/add.css">
+
+
+
+</head>
+<body>
+
+<div class="wrapper">
+
+    <header>
+        <!-- th:fragment     -->
+        <!-- <div th:replace="fragments/header :: headerFragment" /> -->
+
+    </header>
+
+    <main  class="container-xxl">
+
+        <section class="product_img_block">
+            <div class="product_img">
+                <div class="upload-box">
+                    <div class="plus">+</div>
+                </div>
+            </div>
+
+            <div class="preview_img_block">
+                <label>PREVIEW</label>
+                <div id="preview"></div>
+            </div>
+        </section>
+
+        <section class="product_info_block">
+            <form  onsubmit="return false" name="imageform" >
+                <div>
+                    <label>SELLER</label>
+                    <input name="seller" class="form-control" placeholder="판매자 계정명" required>
+                </div>
+                <div>
+                    <label>PRODUCT NAME</label>
+                    <input name="productname" class="form-control" placeholder="제품명" required>
+                </div>
+                <div>
+                    <label>CATEGORY</label>
+                    <select name="category"  class="form-select">
+                        <option value="00" selected>기타</option>
+                        <option value="01">의류</option>
+                        <option value="02">식품</option>
+                        <option value="03">가전</option>
+                        <option value="04">주방</option>
+                        <option value="05">스포츠</option>
+                    </select>
+
+                </div>
+                <div>
+                    <label>BRANDNAME</label>
+                    <input name="brandname" class="form-control" placeholder="" required>
+                </div>
+                <div>
+                    <label>PRICE</label>
+                    <input name="price" class="form-control" placeholder="" required>
+                </div>
+                <div>
+                    <label>ITEMDETAILS</label>
+                    <textarea name="itemdetals" class="form-control" required></textarea>
+                </div>
+                <div style="display:flex;justify-content: space-between;">
+                    <div style="width:120px;">
+                        <label>AMOUNT</label>
+                        <input  type="number" min="1" max="100" step="1" value="1" name="amount" class="form-control w-100" placeholder="" required>
+                    </div>
+                    <div style="width:120px;">
+                        <label>SIZE</label>
+                        <select name="size"  class="form-select w-100" >
+                            <option value="none" selected>-</option>
+                            <option value="sm" >SM</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button  class="btn btn-primary add_product_btn w-100">등록</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <!--  footer fragment      -->
+    <!-- <div th:replace="fragments/footer :: footerFragment" /> -->
+
+</div>
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+<!-- /js/imageboard/add.js   -->
+<script src="/js/imageboard/add.js"></script>
+<!-- user/logout.js   -->
+<script src="/js/user/logout.js"></script>
+
+</body>
+</html>
+
+

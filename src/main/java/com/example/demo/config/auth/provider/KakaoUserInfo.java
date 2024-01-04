@@ -12,8 +12,7 @@ import java.util.Map;
 public class KakaoUserInfo implements OAuth2UserInfo {
 
     private String id;
-
-    public Map<String, Object> attributes;
+    private Map<String,Object> attributes;
 
     @Override
     public String getName() {
@@ -34,4 +33,6 @@ public class KakaoUserInfo implements OAuth2UserInfo {
     public String getProviderId() {
         return this.id;
     }
+
+
 }

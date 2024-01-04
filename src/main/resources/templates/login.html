@@ -1,52 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script defer src="js/common.js"></script>
 
-    <th:block th:insert="~{fragments/head :: headCdns}"></th:block>
+    <th:block th:insert="~{fragments/head :: headCdns}"   />
+
+    <!-- Common css   -->
+    <link href="css/common.css"  rel="stylesheet">
+
 </head>
 <body>
+
+
 <div class="wrapper">
     <header>
         <div class="top-header">
-            <nav>
-            </nav>
+            <span class="material-symbols-outlined">home</span>
         </div>
+        <nav>
+
+        </nav>
     </header>
     <main>
         <section>
-            <div>
-                <h1><span class="material-symbols-outlined">login</span></h1>
+            <div style="text-align:center;margin-bottom:50px;">
+                <h1><span class="material-symbols-outlined" style="font-size:4rem;">login</span></h1>
             </div>
             <form action="/login" method="post">
                 <div>
-                    <label class="form-label fs-6">USERNAME</label>
-                    <input name="username" class="form-control" placeholder="example@domain.com"> <br>
+                    <label  class="form-label">USERNAME</label>
+                    <input name="username" class="form-control"   placeholder="EXAMPLE@DOMAIN.COM"/> <br/>
                 </div>
                 <div>
-                    <label class="form-label fs-6">PASSWORD</label>
-                    <input name="password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요"> <br>
+                    <label  class="form-label">PASSWORD</label>
+                    <input name="password" type="password"  class="form-control" placeholder="INSERT YOUR PASSWORD"   /> <br/>
                 </div>
                 <div>
                     <div>
-                        <input type="checkbox" name="remember-me" id="rememberMe" class="form-check-input">
-                        <label for="rememberMe" class="form-check-label">로그인 상태를 유지</label>
+                        <input type="checkbox" name="remember-me"  id="rememberME"   class="form-check-input"  />
+                        <label  for="rememberME" class="form-check-label">로그인 상태를 유지</label>
                     </div>
                 </div>
-                <div>
-                    <input type="submit" value="로그인" class="btn btn-primary w-100 mt-3 mb-2">
+                <div  class="findidpwBlock" style="display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                        <a href="/user/findId">아이디 찾기</a>
+                    </div>
+                    <div>
+                        <a href="/user/findPw">패스워드 찾기</a>
+                    </div>
                 </div>
-                <div th:text="${param.error}"></div>
+                <div style="text-align:right;">
+                    <a href="/user/certification"  class="" >회원가입</a> <br/>
+                </div>
+                <div>
+                    <input type="submit" value="로그인"  class="btn btn-primary w-100 mt-3 mb-2" />
+                </div>
             </form>
-            <a href="/user/certification" class="btn btn-secondary w-100 mb-2">회원가입</a><br>
-            <a href="/oauth2/authorization/kakao" class="btn btn-warning w-100 mb-2">카카오 로그인</a>
-            <a href="/oauth2/authorization/naver" class="btn btn-success w-100 mb-2">네이버 로그인</a>
-            <a href="/oauth2/authorization/google" class="btn w-100 mb-2">구글 로그인</a>
+
+
+
+            <a href="/oauth2/authorization/kakao"  class="btn btn-warning w-100 mb-2">카카오 로그인</a><br/>
+            <a href="/oauth2/authorization/naver"  class="btn btn-success w-100 mb-2">네이버 로그인</a><br/>
+            <a href="/oauth2/authorization/google"  class="btn w-100 mb-2">구글 로그인</a><br/>
+
+            <div th:text="${param.error}"></div>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+    </footer>
 </div>
+
+
+
+<!-- Axios JS   -->
+
+<!-- JS  -->
+<script src="js/common.js"></script>
+
 </body>
 </html>
+
+
+
+
+

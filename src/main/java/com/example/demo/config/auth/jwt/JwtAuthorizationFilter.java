@@ -12,7 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -43,8 +46,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         System.out.println("[JWTAUTHORIZATIONFILTER] doFilterInternal...");
 
         String token = null;
+        String importAuth = null;
+
         try {
-            String importAuth = null;
+
             // /user/join 으로 GET 에 한에서 적용
 
             if (request.getRequestURI().equals("/user/join")) {
@@ -73,8 +78,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             }
         }catch(Exception e){
             System.out.println("[JWTAUTHORIZATIONFILTER] impoartAuth null Exception...message : " + e.getMessage());
-            response.sendRedirect("/login");
-            return;
+            response.sendRedirect("/login?error=" + URLEncoder.encode(e.getMessage(),"UTF-8"));
+            return ;
         }
 
 

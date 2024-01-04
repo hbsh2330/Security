@@ -10,10 +10,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder // 생성자에 매개변수를 여러개 만들 필요없이(오버로딩)없이 빌더패턴으로 사용하여 생성자에 매개변수를 넣을 수 있다.
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 @Entity
 @Table(name="user")
 public class User {
@@ -22,19 +22,30 @@ public class User {
     private String password;
     private String role;
 
-    //OAUTH2
-    private String providerId;
-    private String provider;
+    private String nickname;
+    private String zipcode;
+    private String addr1;
+    private String addr2;
+    private String phone;
 
-    public static UserDto entityToDto(User user) { // 엔티티를 Dto로 바꿔주는 함수
+    //OAUTH2
+    private String provider;
+    private String providerId;
+
+    public static UserDto entityToDto(User user){
         UserDto dto = UserDto.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .role((user.getRole()))
+                .role(user.getRole())
                 .provider(user.getProvider())
                 .providerId(user.getProviderId())
+                .nickname(user.getNickname())
+                .zipcode(user.getZipcode())
+                .addr1(user.getAddr1())
+                .addr2(user.getAddr2())
+                .phone(user.getPhone())
                 .build();
-
         return dto;
     }
+
 }

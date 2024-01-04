@@ -8,7 +8,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '21'
 }
 
 configurations {
@@ -23,13 +23,13 @@ repositories {
 
 dependencies {
 
-	//web Mvc
+	//Web MVC
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	//Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	//lombok
+	//Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
@@ -39,32 +39,19 @@ dependencies {
 	//SpringSecuirty+Thymeleaf
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+	//DBCONN BASIC
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
 	//ORM_MYBATIS
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 
-	//DEVTOOLS
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-	//VALIDATOR
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	//TEST
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-
-	//DBCONN BASIC
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-
-	//MAIL
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-
 	//ORM_JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-	//OAUTH2-client
+	//OAUTH2-Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 	//JWT_TOKEN
@@ -72,8 +59,24 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
+	//MAIL
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+	//DEVTOOLS
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+	//VALIDATOR
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//FILE UPLOAD
+	implementation 'commons-fileupload:commons-fileupload:1.5'
+
+	//THUMNAILATOR
+	implementation 'net.coobird:thumbnailator:0.4.20'
+
+	//TEST
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 }
 

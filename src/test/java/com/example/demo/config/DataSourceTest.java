@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+
 @SpringBootTest
-public class DataSourceTest {
+class DataSourceTest {
+
 
     @Autowired
     HikariDataSource dataSource;
@@ -15,4 +18,5 @@ public class DataSourceTest {
     public void t1(){
         System.out.println(dataSource);
     }
+
 }

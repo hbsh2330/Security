@@ -5,7 +5,7 @@
     <title>Title</title>
 
     <!-- th:fragment     -->
-    <th:block th:insert="fragments/head :: headCdns"/>
+    <th:block th:insert="~{fragments/head :: headCdns}"   />
 
     <!-- common.css    -->
     <link rel="stylesheet" href="/css/common.css">
@@ -17,232 +17,228 @@
 <body>
 
 
-<div class="wrapper ">
+    <div class="wrapper ">
 
-    <header>
+        <header>
+            <!-- th:fragment     -->
 
-    </header>
+        </header>
 
-    <main class="container-xxl">
-        <section>
+        <main class="container-xxl">
+            <section>
 
 
-            <div class="join_block">
-                <div class="header">
-                    <!-- title -->
-                    <h3>회원가입</h3>
-                </div>
-                <div class="body">
-                    <form  class="joinform"  name="joinform" action="/user/join" method="post">
-                        <div class="mt-2 mb-2">
-                            <label>이메일계정</label>&nbsp;&nbsp;<span th:text="${username}" style="font-size:0.7rem;color:orange;" class="username_msg"></span>
+                <div class="join_block">
+                    <div class="header">
+                        <!-- title -->
+                        <h3>회원가입</h3>
+                    </div>
+                    <div class="body">
+                        <form  class="joinform"  name="joinform" action="/user/join" method="post" >
+                            <div class="mt-2 mb-2">
+                                <label>이메일계정</label>&nbsp;&nbsp;<span th:text="${username}" style="font-size:0.7rem;" class="username_msg"></span>
 
-                            <div style="display:flex;">
-                                <input name="username" class="form-control username" placeholder="이메일 계정 입력" type="email" required>
-                                <button type="button" onclick="emailAuthFunc()" class="btn btn-secondary email_auth_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:80px;margin-left:5px;">
-                                    인증
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;color:orange;"></span>
-                            <input type="password" name="password" class="form-control" placeholder="패스워드 입력">
-                        </div>
-                        <div class="mb-2">
-                            <label>패스워드 확인</label>&nbsp;&nbsp;<span th:text="${repassword}"  style="font-size:0.7rem;color:orange;"></span>
-                            <input type="password" name="repassword" class="form-control" placeholder="패스워드 다시입력">
-                        </div>
-                        <div class="mb-2">
-                            <label>연락처</label>  <span th:text="${phone}"  style="font-size:0.7rem;color:orange;"></span>
-                            <div style="display: flex">
-                                <input name="phone" class="form-control" placeholder="- 제외하고 입력">
-                                <button type="button" onclick="" class="btn btn-secondary email_auth_btn" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="width:80px;margin-left:5px;">
-                                    인증
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>우편번호 검색</label>
-                            <span th:text="${zipcode}"  style="font-size:0.7rem;color:orange;"></span>
-                                <div style="display: flex">
-                                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
-                                    <a href="javascript:openAddrPopUp()" class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</a>
+                                <div style="display:flex;">
+                                    <input name="username" class="form-control username"  placeholder="이메일 계정 입력" type="email" required>
+                                    <!-- data-bs-target="#exampleModal"       -->
+                                    <button type="button" onclick="emailAuthFunc()" class="btn btn-secondary email_auth_btn" data-bs-toggle="modal"   data-bs-target="#exampleModal"  style="width:80px;margin-left:5px;">
+                                        인증
+                                    </button>
                                 </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>기본 주소</label> <span th:text="${addr1}"  style="font-size:0.7rem;color:orange;"></span>
-                            <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력">
-                        </div>
-                        <div class="mb-2">
-                            <label>상세 주소</label>
-                            <input name="addr2" class="form-control" placeholder="상세주소 입력">
-                        </div>
-                        <div class="mb-2">
-                            <button class="btn btn-success w-100 join_btn">회원가입</button>
-                        </div>
-                        <div class="mb-2">
-                            <button  class="btn btn-secondary w-100">이전으로</button>
-                        </div>
-                    </form>
+                            </div>
+                            <div class="mb-2">
+                                <label>패스워드</label>&nbsp;&nbsp;<span th:text="${password}"  style="font-size:0.7rem;color:orange;"></span>
+                                <input type="password" name="password" class="form-control" placeholder="패스워드 입력">
+                            </div>
+                            <div class="mb-2">
+                                <label>패스워드 확인</label>&nbsp;&nbsp;<span th:text="${repassword}"  style="font-size:0.7rem;color:orange;"></span>
+                                <input type="password" name="repassword" class="form-control" placeholder="패스워드 다시입력">
+                            </div>
+                            <div class="mb-2">
+                                <label>닉네임</label>&nbsp;&nbsp;<span th:text="${nickname}"  style="font-size:0.7rem;color:orange;"></span>
+                                <input type="text" name="nickname" class="form-control" placeholder="이름을 입력하세요">
+                            </div>
+                            <div class="mb-2">
+                                <label>연락처</label>  <span th:text="${phone}"  style="font-size:0.7rem;color:orange;"></span>
+                                <div style="display:flex;">
+                                    <input name="phone" class="form-control" placeholder="- 제외하고 입력">
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label>우편번호 검색</label>
+                                <div style="display:flex;">
+                                    <input name="zipcode" class="form-control zipcode"  placeholder="우편번호 입력">
+                                    <a href="javascript:openAddrPopUp()"  class="btn btn-secondary search_addr_btn" style="width:80px;margin-left:5px;">검색</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label>기본 주소</label>
+                                <input name="addr1" class="form-control addr1"  placeholder="기본주소 입력">
+                            </div>
+                            <div class="mb-2">
+                                <label>상세 주소</label>
+                                <input name="addr2" class="form-control" placeholder="상세주소 입력">
+                            </div>
+                            <div class="mb-2">
+                                <button class="btn btn-success w-100 join_btn">회원가입</button>
+                            </div>
+
+                            <div class="mb-2">
+                                <button  class="btn btn-secondary w-100">이전으로</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+
+                </script>
+            </section>
+
+        </main>
+
+
+    </div>
+
+
+
+
+
+    <!-- Email Auth Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">인증 코드 입력</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <form name="emailForm"  action="/user/emailConfirm" style="display:flex;justify-content:space-between;" onSubmit="return false">
+                       <div style="width:100%;">
+                           <input name="emailCode" class="form-control code">
+                           <input type="hidden" name="username" />
+                       </div>
+                       <div style="width:80px;margin-left:5px;text-align:right;">
+                           <button class="btn btn-primary email_auth_btn_2">전송</button>
+                       </div>
+                   </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">다시요청</button>
+                    <button type="button" class="btn btn-secondary modal_exit" data-bs-dismiss="modal">닫기</button>
                 </div>
             </div>
-
-            <script>
-
-            </script>
-        </section>
-
-    </main>
-
-
-</div>
-
-
-
-
-
-<!-- Email Auth Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">인증 코드 입력</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form name="emailForm" action="/user/emailConfirm" style="display:flex;justify-content:space-between;" onSubmit="return false">
-<!--                    submit버튼이 클릭되도 /user/emailConfirm로 안들어가짐 자바스크립트에서 설정하기위해-->
-                    <div style="width:100%;">
-                        <input name="emailCode" class="form-control code">
-                    </div>
-                    <div style="width:80px;margin-left:5px;text-align:right;">
-                        <button class="btn btn-primary email_auth_btn_2">전송</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">다시요청</button>
-                <button type="button" class="btn btn-secondary modal_exit" data-bs-dismiss="modal">닫기</button>
-            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">문자 코드 입력</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form name="emailForm" action="" style="display:flex;justify-content:space-between;" onSubmit="return false">
-                    <!--                    submit버튼이 클릭되도 /user/emailConfirm로 안들어가짐 자바스크립트에서 설정하기위해-->
-                    <div style="width:100%;">
-                        <input name="emailCode" class="form-control code">
-                    </div>
-                    <div style="width:80px;margin-left:5px;text-align:right;">
-                        <button class="btn btn-primary email_auth_btn_2">전송</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">다시요청</button>
-                <button type="button" class="btn btn-secondary modal_exit" data-bs-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- axios -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- common.js   -->
-<script src="/js/common.js"></script>
-<!-- common.js   -->
-<script defer src="/js/user/join.js"></script>
-<script>
-    const isValid=() => {
-        //유효성 체크 username, password, phone..
 
-        const joinform = document.joinform;
-        let regexUsername = new RegExp("[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")
-        if(joinform.username.value.trim()===""){
-            alert("email주소를 입력하세요");
-            location.href="/user/join";
-            return;
-        }else if(!regexUsername.test(joinform.username.value.trim())){
-            alert("이메일 형식으로 입력해주세요");
-            location.href="/user/join"
-            return;
-        }
-        return true;
-    };
-    const emailAuthFunc = function (){
-        if (isValid()){
-            //서버 이메일 전송 요청 GET - 비동기 요청
-            const email = document.joinform.username.value;
-            axios.get('/user/sendmail/' + email)
-                .then(res=>{})
-                .catch(err=>{});
-        }else {
-            location.href="/user/join";
-        }
-    }
-    //이메일 인증버튼 클릭 이벤트
-    const email_btn_el = document.querySelector('.email_auth_btn_2');
-    email_btn_el.addEventListener('click', function (){
-        const emailForm = document.emailForm;
-        const emailCode = emailForm.emailCode.value;
-        if (emailCode.trim() =='') {
-            alert('인증코드를 올바르게 입력하세요');
-            return;
-        }
-        // emailForm.submit();
-        // 모달 창 활성화
-        // var myModal = new bootstrap.Modal(document.querySelector('#exampleModal'), {
-        //     keyboard : false
-        // })
-        // myModal.show();
-        axios.get('/user/emailConfirm?emailCode='+emailCode)
-            .then(res =>{console.log(res)
-                if (res.data.success){
-                    //인증완료
-                    document.querySelector('.username_msg').style.color='green';
+
+
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- common.js   -->
+    <script src="/js/common.js"></script>
+    <!-- common.js   -->
+    <script src="/js/user/join.js"></script>
+
+
+    <script>
+        const isValid=() => {
+           //유효성 체크 username, password, phone..
+
+           const joinform = document.joinform;
+           let regexUsername = new RegExp("[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")
+           if(joinform.username.value.trim()===""){
+               alert("email주소를 입력하세요");
+               return false;
+           }else if(!regexUsername.test(joinform.username.value.trim())){
+               alert("이메일 형식으로 입력해주세요");
+               return false;
+           }
+           return true;
+       };
+       const emailAuthFunc = function (){
+           if (isValid()){
+               //서버 이메일 전송 요청 GET - 비동기 요청
+               const email = document.joinform.username.value;
+               axios.get('/user/sendMail/' + email)
+                   .then(res=>{
+                       console.log(res);
+                   })
+                   .catch(err=>{
+                       console.log(err);
+                   });
+           }
+           else
+           {
+               location.href="/user/join";
+           }
+
+       }
+
+        //이메일 인증버튼 클릭 이벤트
+        const email_btn_el = document.querySelector('.email_auth_btn_2');
+        email_btn_el.addEventListener('click',function(){
+           console.log("TEST");
+           const emailForm = document.emailForm;
+           const emailCode = emailForm.emailCode.value;
+           const username = document.joinform.username.value;
+           console.log(username);
+           emailForm.username.value = username;
+           if(emailCode.trim()==''){
+               alert('인증코드를 올바르게 입력하세요');
+               return ;
+           }
+   //       emailForm.submit();
+
+
+
+
+          axios.get('/user/emailConfirm?emailCode='+emailCode+'&username='+username)
+          .then(res =>{
+               console.log(res);
+               if(res.data.success){
+                       //인증완료 -> 다음 입력을 할 준비~
+                       document.querySelector('.username_msg').style.color='green';
+               }else{
+                       //인증X -> 인증이 안된 내용을 표시
+                       document.querySelector('.username_msg').style.color='orange';
+               }
+               document.querySelector('.username_msg').innerHTML=res.data.message;
+               // 모달창 비활성화..
+               document.querySelector('#exampleModal').classList.remove('show');
+               document.querySelector('#exampleModal').classList.add('hide');
+               document.querySelector('.modal-backdrop').remove();
+
+
+          })
+          .catch(err=>{console.log(err);});
+
+
+        })
+
+
+    </script>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        const openAddrPopUp = ()=>{
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    console.log(data);
+                    if(data.addressType=='R'){
+                        document.joinform.addr1.value=data.roadAddress; //도로명 주소
+                    }else{
+                        document.joinform.addr1.value=data.jibunAddress; //지번주소
+                    }
+                    document.joinform.zipcode.value=data.zonecode;
                 }
-                else {
-                    //인증 X
-                    document.querySelector('.username_msg').style.color='orange';
-                }
-                document.querySelector('.username_msg').innerHTML=res.data.message;
-                // 모달창 비활성화
-                document.querySelector('#exampleModal').classList.remove('show');
-                document.querySelector('#exampleModal').classList.add('hide');
-                document.querySelector('.modal-backdrop').style.display = 'none';
-
-            })
-            .catch(err=>{console.log(err);})
-    })
-</script>
-
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    const openAddrPopUp = () =>{
-        new daum.Postcode({
-            oncomplete: function(data) {
-                console.log(data);
-                if (data.addressType=='R'){
-                    //도로명 주소
-                    document.joinform.addr1.value=data.roadAddress;
-                }
-                document.joinform.zipcode.value=data.zonecode;
-            }
-        }).open();
-    }
-
-</script>
-
+            }).open();
+        }
+    </script>
 
 </body>
 </html>

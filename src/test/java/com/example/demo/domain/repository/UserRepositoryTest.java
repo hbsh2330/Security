@@ -5,13 +5,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class MemoRepositoryTest {
-    @Autowired
-    private UserRepository memoRepository;
+import static org.junit.jupiter.api.Assertions.*;
 
+
+@SpringBootTest
+class UserRepositoryTest {
+
+    @Autowired
+    private UserRepository userRepository;
     @Test
-    public void t2(){
-        memoRepository.deleteAll();
+    public void t1(){
+        User user =  userRepository.findByNicknameAndPhone("홍길동","01012341234");
+        System.out.println(user);
+
+
     }
+
 }

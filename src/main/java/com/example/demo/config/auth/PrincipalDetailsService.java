@@ -18,15 +18,20 @@ public class PrincipalDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // 넣어진 데이터를 가져오는 녀석
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("[PrincipalDetailsService] loadUserByUsername() username :" + username);
         Optional<User> userOptional = userRepository.findById(username);
-        if (userOptional.isEmpty())
+        if(userOptional.isEmpty())
             return null;
+
         //Entity -> Dto
         UserDto dto = new UserDto();
         dto.setUsername(userOptional.get().getUsername());
         dto.setPassword(userOptional.get().getPassword());
         dto.setRole(userOptional.get().getRole());
+        //
+
         return new PrincipalDetails(dto);
     }
+
 }

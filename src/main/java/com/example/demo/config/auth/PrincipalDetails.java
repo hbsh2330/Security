@@ -17,28 +17,34 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PrincipalDetails implements UserDetails, OAuth2User {
+
+    private boolean isEmailAuth;
+
     private UserDto userDto;
-    //OAUTH2 ---------------------------------------------------
 
     public PrincipalDetails(UserDto dto) {
         this.userDto = dto;
     }
-    private String accessToken;
 
-    private Map<String, Object> attributes;
+    //OAUTH2---------------------------------------
+    private String accessToken;
+    private Map<String,Object> attributes;
+
+
+
     @Override
     public Map<String, Object> getAttributes() {
         return null;
     }
-
     @Override
     public String getName() {
         return null;
     }
-    //OAUTH2 ---------------------------------------------------
+    //OAUTH2---------------------------------------
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
+        Collection<GrantedAuthority> collection = new ArrayList();
         collection.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
@@ -59,7 +65,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
 
     @Override
-    public boolean isAccountNonExpired() { //계정이 현재 만료되지않았나?
+    public boolean isAccountNonExpired() {
         return true;
     }
 
@@ -77,5 +83,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+
 
 }

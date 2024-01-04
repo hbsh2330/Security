@@ -8,10 +8,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.io.IOException;
 
-public class CustomauthenticationEntryPoint implements AuthenticationEntryPoint {
+public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        System.out.println("[CustomauthenticationEntryPoint] commence()" + authException);
-        response.sendRedirect("/login?error="+ authException.getMessage());
+        System.out.println("[CustomAuthenticationEntryPoint] commence() " + authException);
+        response.sendRedirect("/login?error="+authException.getMessage());
     }
 }

@@ -1,75 +1,89 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <th:block th:insert="~{fragments/head :: headCdns}"></th:block>
+
+    <th:block th:insert="~{fragments/head :: headCdns}"   />
+
+    <!-- Common css   -->
+    <link href="css/common.css"  rel="stylesheet">
 </head>
 <body>
-<div class="wrapper">
-    <header>
-        <div class="top-header">
 
-        </div>
-
-        <nav>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <div style="height: 300px; line-height:300px; text-align: center; text-align: center; border: 1px solid lightgray; border-radius: 15px">
-                <button onclick="requestCert()" class="btn btn-primary">본인인증</button>
+    <div class="wrapper">
+        <header>
+            <div class="top-header">
+                <span class="material-symbols-outlined">home</span>
             </div>
-        </section>
-    </main>
-</div>
-<!-- axios 인증 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- PortOne 인증SDK -->
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+             <nav>
 
-<button onclick="">인증하기</button>
+             </nav>
 
-<script>
-    const userCode = "imp40654467";
-    IMP.init(userCode);
+        </header>
+        <main>
+            <section>
+                <div style="height:300px;line-height:300px;width:500px;margin:0 auto; text-align:center;border:1px solid lightgray;border-radius:15px;">
+                    <button onClick="requestCert()" class="btn btn-primary" style="250px;">본인인증</button>
+                </div>
+            </section>
 
-    function requestCert() {
-        IMP.certification(
-            {
-            pg: "inicis_unified",
-            merchant_uid: "test_lqdjtqg8",
-            },
-            function (response) {
+        </main>
+        <footer>
+        </footer>
+    </div>
+
+
+
+
+    <!-- Axios JS   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- JS  -->
+    <script src="js/common.js"></script>
+
+    <!-- PortOne 인증SDK   -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <script>
+        const userCode = "imp87380722";
+        IMP.init(userCode);
+
+        function requestCert() {
+          IMP.certification(
+              {
+                pg: "inicis_unified",
+                merchant_uid: "test_lqdjtpd0",
+              },
+              function(response){
+
                 console.log(response);
-                if (response.success) {
-                    const params = {"is_auth_join": response.success, "auth_value": response.imp_uid};
-                    const headers = {headers: {'Content-Type': 'application/Json'}}
+                if(response.success){
+                        const params = {"is_auth_join" : response.success,"auth_value":response.imp_uid };
+                        const headers = { 'Content-type' : 'application/json' };
 
-                    axios.post("/user/certification", params, headers)
-                        .then(resp => {
-                            console.log("local msg", resp);
-                            if (resp.data.success)
-                                location.href = '/user/join'; // 성공 로직 작성 서버에서 정상적으로 인증 확인 된 경우 페이지 이동 GET /user/join
+                        axios.post("/user/certification",params,headers)
+                        .then(resp=>{
+                            console.log("local msg ",resp);
+                            if(resp.data.success)
+                                    location.href='/user/join'; //서버에서 정상적으로 인증 확인 한경우 페이지 이동 GET /user/join
                             else
-                                alert('본인 인증을 실패했습니다.')
-                            // 실패 로직 작성 본인인증에 실패했습니다.
+                                alert('본인인증을 실패했습니다'); //서버에서 false 준경우 alert창을 띄움..
                         })
-                        .catch(error => {
-                            console.log("local msg", error)
-                        });
-                }else {
-                    alert("사용자 인증을 실패했습니다.")
+                        .catch(error=>{console.log("local msg ",error);});
+                }else{
+                    alert("사용자 인증을 실패했습니다");
                     location.href="/user/certification";
                 }
-            }
-        );
-    }
-</script>
+
+              }
+          );
+        }
+
+
+
+    </script>
+
+
 </body>
-<footer>
-
-</footer>
-
 </html>
